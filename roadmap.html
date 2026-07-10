@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Engineer — 6-Month Build Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0e1316;
+    --bg-grid: #131a1e;
+    --panel: #161d22;
+    --panel-hi: #1c262c;
+    --panel-hover: #212c33;
+    --border: #2a353d;
+    --border-soft: #212b31;
+    --text: #ece9e2;
+    --text-dim: #9fadb5;
+    --text-faint: #64757f;
+    --amber: #ffb454;
+    --amber-dim: #a67c3d;
+    --teal: #52d4c8;
+    --teal-dim: #2f7a72;
+    --steel: #5b7a94;
+    --green: #74c69d;
+    --red: #e8734a;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --maxw: 1180px;
+  }
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255,180,84,0.07), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 100% 0%, rgba(82,212,200,0.06), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--amber); color:#1a1200;}
+  a{color:var(--teal);}
+  h1,h2,h3,h4{font-family:var(--font-display); font-weight:600; letter-spacing:-0.01em; margin:0; color:var(--text);}
+  p{margin:0 0 1em 0;}
+  img{max-width:100%;display:block;}
+  .mono{font-family:var(--font-mono);}
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+  @media (max-width:640px){.container{padding:0 18px;}}
+
+  /* ---------- NAV ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:100;
+    background:rgba(14,19,22,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .topbar-inner{
+    max-width:var(--maxw); margin:0 auto; padding:0 28px;
+    display:flex; align-items:center; justify-content:space-between;
+    height:56px;
+  }
+  .brand{
+    font-family:var(--font-mono); font-size:13px; color:var(--text-dim);
+    display:flex; align-items:center; gap:8px; white-space:nowrap;
+  }
+  .brand .dot{width:7px;height:7px;border-radius:50%;background:var(--green); box-shadow:0 0 8px var(--green);}
+  .navlinks{
+    display:flex; gap:2px; overflow-x:auto; scrollbar-width:none;
+    font-family:var(--font-mono); font-size:12px;
+  }
+  .navlinks::-webkit-scrollbar{display:none;}
+  .navlinks a{
+    color:var(--text-faint); text-decoration:none; white-space:nowrap;
+    padding:8px 10px; border-radius:6px; transition:all .15s ease;
+  }
+  .navlinks a:hover{color:var(--amber); background:var(--panel-hi);}
+  .navprogress{
+    font-family:var(--font-mono); font-size:11px; color:var(--text-faint);
+    white-space:nowrap; padding-left:12px; border-left:1px solid var(--border-soft);
+  }
+  .navprogress b{color:var(--teal);}
+
+  /* ---------- HERO / MANIFEST ---------- */
+  .hero{padding:56px 0 40px; border-bottom:1px solid var(--border-soft);}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12px; color:var(--teal);
+    letter-spacing:0.08em; text-transform:uppercase; margin-bottom:18px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:'';width:24px;height:1px;background:var(--teal);}
+  .hero h1{
+    font-size:clamp(2rem, 5vw, 3.4rem); line-height:1.05; max-width:16ch;
+    margin-bottom:20px;
+  }
+  .hero h1 em{font-style:normal; color:var(--amber);}
+  .hero-sub{
+    font-size:1.1rem; color:var(--text-dim); max-width:62ch; margin-bottom:36px;
+  }
+  .spec-sheet{
+    border:1px solid var(--border); border-radius:10px; background:var(--panel);
+    overflow:hidden;
+  }
+  .spec-row{
+    display:grid; grid-template-columns:220px 1fr;
+    border-bottom:1px solid var(--border-soft);
+    font-size:13.5px;
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-key{
+    font-family:var(--font-mono); color:var(--text-faint); padding:13px 18px;
+    border-right:1px solid var(--border-soft); text-transform:uppercase; font-size:11.5px;
+    letter-spacing:0.04em; display:flex; align-items:center;
+  }
+  .spec-val{padding:13px 18px; color:var(--text); display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .spec-val .mono{color:var(--text-dim); font-size:13px;}
+  @media (max-width:640px){
+    .spec-row{grid-template-columns:1fr;}
+    .spec-key{border-right:none; border-bottom:1px solid var(--border-soft); padding-bottom:6px;}
+  }
+  .tag{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family:var(--font-mono); font-size:11px; padding:3px 9px;
+    border-radius:20px; border:1px solid var(--border); color:var(--text-dim);
+    background:var(--panel-hi);
+  }
+  .tag.warn{color:var(--red); border-color:rgba(232,115,74,0.35); background:rgba(232,115,74,0.08);}
+  .tag.good{color:var(--green); border-color:rgba(116,198,157,0.35); background:rgba(116,198,157,0.08);}
+  .tag.amber{color:var(--amber); border-color:rgba(255,180,84,0.35); background:rgba(255,180,84,0.08);}
+
+  /* ---------- PIPELINE RAIL (signature element) ---------- */
+  .pipeline{padding:44px 0 56px;}
+  .pipeline-label{
+    font-family:var(--font-mono); font-size:12px; color:var(--text-faint);
+    text-transform:uppercase; letter-spacing:0.08em; margin-bottom:20px;
+  }
+  .rail{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:0; position:relative;
+  }
+  .rail::before{
+    content:''; position:absolute; top:22px; left:4%; right:4%; height:1px;
+    background:linear-gradient(90deg, var(--amber-dim), var(--teal-dim));
+    z-index:0;
+  }
+  .rail-node{position:relative; z-index:1; padding:0 8px; text-align:left;}
+  .rail-node a{text-decoration:none; color:inherit; display:block;}
+  .rail-dot{
+    width:12px; height:12px; border-radius:50%; background:var(--bg);
+    border:2px solid var(--amber); margin-bottom:14px;
+    box-shadow:0 0 0 4px var(--bg);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .rail-node:nth-child(even) .rail-dot{border-color:var(--teal);}
+  .rail-node:hover .rail-dot{transform:scale(1.3); box-shadow:0 0 0 4px var(--bg), 0 0 14px var(--amber);}
+  .rail-num{font-family:var(--font-mono); font-size:11px; color:var(--text-faint);}
+  .rail-title{font-family:var(--font-display); font-size:14.5px; font-weight:600; margin:4px 0 6px; color:var(--text);}
+  .rail-weeks{font-family:var(--font-mono); font-size:11px; color:var(--text-dim);}
+  @media (max-width:900px){
+    .rail{grid-template-columns:1fr; gap:22px;}
+    .rail::before{display:none;}
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .section{padding:64px 0; border-bottom:1px solid var(--border-soft);}
+  .section-head{margin-bottom:32px; max-width:74ch;}
+  .section-num{font-family:var(--font-mono); font-size:12px; color:var(--amber); letter-spacing:0.08em; margin-bottom:10px; display:block;}
+  .section h2{font-size:clamp(1.5rem,3vw,2.1rem); margin-bottom:12px;}
+  .section-dek{color:var(--text-dim); font-size:1.02rem;}
+
+  /* ---------- GRID / CARDS ---------- */
+  .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  @media (max-width:800px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+  .card{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    padding:22px; transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--steel);}
+  .card h3{font-size:1.05rem; margin-bottom:10px;}
+  .card h3 .mono-tag{display:block; font-family:var(--font-mono); font-size:11px; color:var(--amber); margin-bottom:6px; letter-spacing:.04em;}
+  .card p, .card li{color:var(--text-dim); font-size:14.5px;}
+  .card ul{padding-left:18px; margin:10px 0;}
+
+  /* ---------- TABLE ---------- */
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--border); border-radius:10px;}
+  table{width:100%; border-collapse:collapse; font-size:13.5px; min-width:560px;}
+  thead th{
+    text-align:left; font-family:var(--font-mono); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.04em; color:var(--text-faint); background:var(--panel-hi);
+    padding:12px 16px; border-bottom:1px solid var(--border);
+  }
+  tbody td{padding:12px 16px; border-bottom:1px solid var(--border-soft); color:var(--text-dim);}
+  tbody tr:last-child td{border-bottom:none;}
+  tbody td:first-child, tbody th:first-child{color:var(--text); font-weight:500;}
+  tbody tr:hover{background:var(--panel-hover);}
+  .num{font-family:var(--font-mono); color:var(--teal) !important;}
+
+  /* ---------- ACCORDION (details/summary) ---------- */
+  details.phase{
+    background:var(--panel); border:1px solid var(--border); border-radius:10px;
+    margin-bottom:14px; overflow:hidden;
+  }
+  details.phase[open]{border-color:var(--steel);}
+  details.phase summary{
+    cursor:pointer; padding:20px 22px; display:flex; align-items:center; gap:16px;
+    list-style:none; font-family:var(--font-display); font-weight:600;
+  }
+  details.phase summary::-webkit-details-marker{display:none;}
+  details.phase summary::after{
+    content:'+'; margin-left:auto; font-family:var(--font-mono); color:var(--text-faint);
+    font-size:20px; font-weight:400; transition:transform .2s ease;
+  }
+  details.phase[open] summary::after{transform:rotate(45deg); color:var(--amber);}
+  .phase-badge{
+    font-family:var(--font-mono); font-size:11px; color:var(--bg); background:var(--amber);
+    padding:4px 10px; border-radius:5px; flex-shrink:0;
+  }
+  .phase-meta{font-family:var(--font-mono); font-size:12px; color:var(--text-faint); font-weight:400; margin-top:3px; display:block;}
+  .phase-body{padding:0 22px 26px;}
+  .phase-intro{color:var(--text-dim); font-size:14.5px; padding-bottom:18px; border-bottom:1px dashed var(--border); margin-bottom:18px;}
+
+  details.week{
+    border:1px solid var(--border-soft); border-radius:8px; margin-bottom:10px; background:var(--panel-hi);
+  }
+  details.week summary{
+    cursor:pointer; padding:13px 16px; list-style:none; display:flex; gap:12px; align-items:baseline;
+  }
+  details.week summary::-webkit-details-marker{display:none;}
+  details.week summary::after{content:'▸'; margin-left:auto; color:var(--text-faint); font-size:11px; transition:transform .15s;}
+  details.week[open] summary::after{transform:rotate(90deg);}
+  .week-num{font-family:var(--font-mono); font-size:12px; color:var(--teal); flex-shrink:0;}
+  .week-title{font-weight:600; font-size:14.5px;}
+  .week-body{padding:2px 16px 18px 44px; font-size:14px; color:var(--text-dim);}
+  .week-body h5{font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-faint); margin:14px 0 6px;}
+  .week-body h5:first-child{margin-top:0;}
+  .week-body ul{margin:0 0 4px 0; padding-left:18px;}
+  .week-body li{margin-bottom:4px;}
+  .checkpoint{
+    margin-top:12px; padding:10px 14px; background:rgba(82,212,200,0.06);
+    border:1px solid rgba(82,212,200,0.25); border-radius:7px; font-size:13.5px;
+    display:flex; gap:10px; align-items:flex-start;
+  }
+  .checkpoint input{margin-top:3px; accent-color:var(--teal); cursor:pointer;}
+  .checkpoint label{color:var(--text); cursor:pointer;}
+  .checkpoint b{color:var(--teal);}
+
+  /* ---------- CALLOUT ---------- */
+  .callout{border-radius:10px; padding:20px 22px; margin:20px 0; border:1px solid var(--border);}
+  .callout h4{font-size:14px; text-transform:uppercase; letter-spacing:.04em; font-family:var(--font-mono); margin-bottom:8px;}
+  .callout p:last-child{margin-bottom:0;}
+  .callout.info{background:rgba(82,212,200,0.05); border-color:rgba(82,212,200,0.3);}
+  .callout.info h4{color:var(--teal);}
+  .callout.warn{background:rgba(232,115,74,0.06); border-color:rgba(232,115,74,0.3);}
+  .callout.warn h4{color:var(--red);}
+  .callout.amber{background:rgba(255,180,84,0.06); border-color:rgba(255,180,84,0.3);}
+  .callout.amber h4{color:var(--amber);}
+
+  /* ---------- PROJECT CARDS ---------- */
+  .proj{
+    border:1px solid var(--border); border-radius:12px; background:var(--panel);
+    margin-bottom:20px; overflow:hidden;
+  }
+  .proj-head{padding:24px 26px 0;}
+  .proj-tier{font-family:var(--font-mono); font-size:11px; color:var(--amber); text-transform:uppercase; letter-spacing:.06em;}
+  .proj h3{font-size:1.3rem; margin:8px 0 10px;}
+  .proj-why{color:var(--text-dim); font-size:14.5px; margin-bottom:18px;}
+  .proj-grid{display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--border-soft);}
+  @media (max-width:700px){.proj-grid{grid-template-columns:1fr;}}
+  .proj-col{padding:20px 26px; font-size:13.8px; color:var(--text-dim);}
+  .proj-col:first-child{border-right:1px solid var(--border-soft);}
+  @media (max-width:700px){.proj-col:first-child{border-right:none; border-bottom:1px solid var(--border-soft);}}
+  .proj-col h5{font-family:var(--font-mono); font-size:11px; text-transform:uppercase; color:var(--text-faint); letter-spacing:.05em; margin-bottom:10px;}
+  .proj-col ul{padding-left:18px; margin:0;}
+  .proj-col li{margin-bottom:6px;}
+  .proj-stack{display:flex; flex-wrap:wrap; gap:6px; padding:0 26px 22px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:48px 0 70px; color:var(--text-faint); font-size:13px;}
+  footer a{color:var(--text-dim);}
+  .src-list{columns:2; column-gap:40px; font-size:12.8px; line-height:1.9;}
+  @media (max-width:700px){.src-list{columns:1;}}
+  .src-list a{color:var(--text-faint); text-decoration:none;}
+  .src-list a:hover{color:var(--teal);}
+
+  /* ---------- MISC ---------- */
+  .divider{height:1px; background:var(--border-soft); margin:28px 0; border:none;}
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+  .backtotop{
+    position:fixed; bottom:22px; right:22px; width:40px; height:40px; border-radius:50%;
+    background:var(--panel-hi); border:1px solid var(--border); color:var(--text-dim);
+    display:flex; align-items:center; justify-content:center; text-decoration:none;
+    font-size:16px; opacity:0; pointer-events:none; transition:opacity .2s ease; z-index:90;
+  }
+  .backtotop.show{opacity:1; pointer-events:auto;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="dot"></span>ai-engineer-roadmap<span style="color:var(--text-faint)">.build</span></div>
+    <nav class="navlinks">
+      <a href="#landscape">landscape</a>
+      <a href="#comp">comp</a>
+      <a href="#roadmap">roadmap</a>
+      <a href="#projects">projects</a>
+      <a href="#sysdesign">sys-design</a>
+      <a href="#interview">interview</a>
+      <a href="#applications">apply</a>
+      <a href="#resources">resources</a>
+      <a href="#reality">reality-check</a>
+    </nav>
+    <div class="navprogress" id="navProgress">0/31 <span style="color:var(--text-faint)">shipped</span></div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="container">
+    <div class="eyebrow">personalized build plan · rev 1.0 · generated 2026-07-10</div>
+    <h1>From SQL &amp; a little Python to <em>shipping AI systems.</em></h1>
+    <p class="hero-sub">A 6-month, evidence-based build plan for becoming a genuinely hireable AI Engineer — reverse-engineered from live job postings, real compensation data, and what production AI teams at Google, Meta, Amazon, Microsoft, Nvidia, Anthropic, OpenAI, Databricks and Snowflake actually ship. Calibrated to your starting point, not a generic bootcamp syllabus.</p>
+
+    <div class="spec-sheet">
+      <div class="spec-row">
+        <div class="spec-key">Starting point</div>
+        <div class="spec-val">SQL <span class="mono">·</span> C++ <span class="mono">·</span> Java <span class="mono">·</span> some Python <span class="mono">·</span> ML algorithms (intro) <span class="mono">·</span> RAG-aware</div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Throughput</div>
+        <div class="spec-val"><span class="mono">~5 hrs / day · ~30–35 hrs / week</span></div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Build duration</div>
+        <div class="spec-val"><span class="mono">26 weeks · 6 phases · ~800 focused hours</span></div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Target role</div>
+        <div class="spec-val">AI Engineer <span class="mono" style="color:var(--text-faint)">(LLM application &amp; production layer — see Landscape)</span></div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Target comp</div>
+        <div class="spec-val"><span class="tag good">$140K+ realistic</span> <span class="mono" style="color:var(--text-faint)">validated against live data in §2</span></div>
+      </div>
+      <div class="spec-row">
+        <div class="spec-key">Status</div>
+        <div class="spec-val"><span class="tag warn">not a guarantee</span> <span style="color:var(--text-dim); font-size:13px;">— this maximizes your odds; it can't set them to 100%. See §9.</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="pipeline">
+  <div class="container">
+    <div class="pipeline-label">// the build, phase by phase</div>
+    <div class="rail">
+      <div class="rail-node"><a href="#p1"><div class="rail-dot"></div><span class="rail-num">01</span><div class="rail-title">Foundations</div><div class="rail-weeks">Weeks 1–4</div></a></div>
+      <div class="rail-node"><a href="#p2"><div class="rail-dot"></div><span class="rail-num">02</span><div class="rail-title">ML + DL Core</div><div class="rail-weeks">Weeks 5–8</div></a></div>
+      <div class="rail-node"><a href="#p3"><div class="rail-dot"></div><span class="rail-num">03</span><div class="rail-title">LLM + GenAI Core</div><div class="rail-weeks">Weeks 9–12</div></a></div>
+      <div class="rail-node"><a href="#p4"><div class="rail-dot"></div><span class="rail-num">04</span><div class="rail-title">Agents + Evals</div><div class="rail-weeks">Weeks 13–16</div></a></div>
+      <div class="rail-node"><a href="#p5"><div class="rail-dot"></div><span class="rail-num">05</span><div class="rail-title">Production + MLOps</div><div class="rail-weeks">Weeks 17–20</div></a></div>
+      <div class="rail-node"><a href="#p6"><div class="rail-dot"></div><span class="rail-num">06</span><div class="rail-title">Sys Design + Job Search</div><div class="rail-weeks">Weeks 21–26</div></a></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+<section class="section" id="landscape"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§1 — The Landscape</span>
+    <h2>"AI Engineer" now means something specific. Build toward the right target.</h2>
+    <p class="section-dek">In 2020, "AI Engineer" and "Machine Learning Engineer" were the same job. By 2026 they've split into two different careers with different stacks, different interview loops, and different hiring markets — because foundation models absorbed the part of the work that used to require training a model from scratch.</p>
+  </div>
+
+  <p>A <b style="color:var(--text)">Machine Learning Engineer</b> still builds, trains, and deploys custom models on proprietary data — fraud detection, recommendation ranking, forecasting. The model is the product. An <b style="color:var(--text)">AI Engineer</b> — the role you asked about — builds production software on top of <em style="color:var(--text-dim); font-style:normal;">existing</em> foundation models: retrieval pipelines, agents, tool use, evaluation, and the serving layer around them. Roughly two-thirds of the underlying skills overlap (Python, cloud, ML fundamentals); the other third is where the two careers diverge hard.</p>
+
+  <div class="tbl-wrap" style="margin:24px 0;">
+    <table>
+      <thead><tr><th>Dimension</th><th>AI Engineer (this roadmap)</th><th>ML Engineer</th></tr></thead>
+      <tbody>
+        <tr><td>Core question</td><td>How do I get a foundation model to reliably do this task in production?</td><td>How do I train a model that beats a baseline on this metric?</td></tr>
+        <tr><td>Signature skills</td><td class="mono" style="font-size:12.5px;">RAG, vector DBs, agents, prompt/eval engineering, LangChain/LangGraph</td><td class="mono" style="font-size:12.5px;">Feature engineering, PyTorch/TensorFlow training, MLOps, statistics</td></tr>
+        <tr><td>Where PyTorch shows up</td><td>~22% of postings, mostly light fine-tuning</td><td>~42% of postings, daily training work</td></tr>
+        <tr><td>National median (base)</td><td class="num">≈ $145K</td><td class="num">≈ $165K</td></tr>
+        <tr><td>Entry-friendliness</td><td>Newer title, faster-growing, more entry postings</td><td>More established, slightly fewer entry postings</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12.5px; color:var(--text-faint);">Figures triangulated from InterviewStack.io's 2026 posting analysis and Robert Half's 2026 Salary Guide — see §8 for full sourcing. Individual company usage of these titles is inconsistent; always read the actual job description, not just the title.</p>
+
+  <div class="callout info">
+    <h4>Why this roadmap targets AI Engineer, specifically</h4>
+    <p>You already mentioned ML algorithms and RAG — you're closer to this track than to classical ML already. This plan builds real depth in classical ML and neural nets too (Phase 2), partly because interviewers test for it regardless of title, and partly because it makes you a credible candidate for ML Engineer postings as a fallback. But the specialization — and the projects — point at AI Engineer roles: the ones built around LLMs, retrieval, agents, and evaluation.</p>
+  </div>
+
+  <h3 style="margin:36px 0 18px; font-size:1.3rem;">What the employers you named are actually screening for</h3>
+  <p style="color:var(--text-dim); margin-bottom:22px;">Pulled from live postings and engineering-guide breakdowns, not marketing pages. Paraphrased — read the source postings linked in §8 for exact wording.</p>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3><span class="mono-tag">GOOGLE / DEEPMIND</span>Full-stack ML + scale</h3>
+      <ul>
+        <li>Experience building an entire AI-app stack — ingestion, APIs, model, UI — not just model code</li>
+        <li>Familiarity with CNNs, NLP transformers, and diffusion/vision transformer architectures</li>
+        <li>New-grad SWE (AI/ML track) base posted at $147K–$211K + 15% bonus + equity</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">META</span>SWE and ML both at "expert"</h3>
+      <ul>
+        <li>Software engineering and ML fundamentals both rated expert-level — not a modeling job with light coding</li>
+        <li>Business-impact framing expected: connect a model change to engagement/revenue, not just architecture</li>
+        <li>GenAI surface (Llama family, Meta AI assistant, PyTorch-native agent framework) is where headcount is growing fastest</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">AMAZON / AWS</span>GenAI stack + Leadership Principles</h3>
+      <ul>
+        <li>Expects hands-on Bedrock, AgentCore, RAG pipelines, embeddings, vector search — not conceptual familiarity</li>
+        <li>The Bar Raiser round (a trained interviewer from an unrelated org) weighs heavily; weak Leadership Principle stories sink strong technical performers</li>
+        <li>System design explicitly probes AWS-constrained tradeoffs: latency, cost, infra choices</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">MICROSOFT</span>Azure-native + growth mindset</h3>
+      <ul>
+        <li>Azure AI Search, Cosmos DB vector search, Azure ML are treated as genuine differentiators, not resume decoration</li>
+        <li>C# and TypeScript fluency matters beyond Python for reading PRs in Copilot/SDK codebases</li>
+        <li>Interviews explicitly probe "end-to-end ownership" (data → model → serving → iteration), not narrow task execution</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">NVIDIA</span>Inference + systems depth</h3>
+      <ul>
+        <li>GPU inference optimization (CUDA, TensorRT, Triton), profiling, and LLM/SLM architecture internals for infra-adjacent roles</li>
+        <li>AI Engineer total comp band reported at a $460K median; ML Engineer IC1–IC4 at $205K–$331K</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">ANTHROPIC / OPENAI</span>No PhD required, but brutally competitive</h3>
+      <ul>
+        <li>Anthropic states plainly that independent research, a sharp blog post, or real open-source contributions belong at the top of your resume — roughly half their technical staff don't have PhDs</li>
+        <li>Coding screens use tools like Colab/CodeSignal where you can look things up — the bar is judgment, not memorized syntax</li>
+        <li>OpenAI's Residency is explicitly built for career-changers with strong fundamentals but no formal ML background</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">DATABRICKS / SNOWFLAKE</span>Data platform + ML fused</h3>
+      <ul>
+        <li>Snowpark ML and Unity Catalog (Databricks) — pushing feature engineering and serving into the warehouse itself</li>
+        <li>Deep SQL alongside Python/Spark is non-negotiable; this plays directly to a SQL background</li>
+        <li>Databricks software engineer total comp reported at a $447K median across levels — among the highest of any company researched</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">SCALE AI / PALANTIR</span>Forward-deployed, applied</h3>
+      <ul>
+        <li>Forward Deployed Engineer pattern: embedded on-site with a customer, shipping applied AI against a specific business problem, not building general infrastructure</li>
+        <li>Palantir's L1 (entry) band runs $150K–$200K; Scale AI's reported median total comp sits around $377K</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3><span class="mono-tag">READ THE TITLE FINE PRINT</span></h3>
+      <ul>
+        <li>Robert Half's 2026 guide flags <em style="font-style:normal; color:var(--text-dim);">Agentic AI Engineer</em>, <em style="font-style:normal; color:var(--text-dim);">LLM Engineer</em>, and <em style="font-style:normal; color:var(--text-dim);">AIOps Engineer</em> as emerging titles paying above the standard band</li>
+        <li>Search all of these, not just "AI Engineer" — the job you want is often listed under a title that didn't exist two years ago</li>
+      </ul>
+    </div>
+  </div>
+
+</div></section>
+
+<section class="section" id="comp"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§2 — Compensation Reality</span>
+    <h2>What $140K+ actually looks like, company by company</h2>
+    <p class="section-dek">Salary aggregators disagree with each other constantly — Glassdoor, Built In, ZipRecruiter, and Levels.fyi each sample a different slice of the market. None of them are wrong; they're answering different questions. Here's a triangulated view, and where your target actually sits in it.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th>Role / level</th><th>Base range</th><th>Total comp (median)</th></tr></thead>
+      <tbody>
+        <tr><td>Google</td><td>New-grad SWE, AI/ML track</td><td class="num">$147K–$211K</td><td>+15% bonus + equity</td></tr>
+        <tr><td>Google Cloud</td><td>AI Engineer, Professional Services (senior)</td><td class="num">$183K–$271K</td><td>+ bonus + equity</td></tr>
+        <tr><td>Meta</td><td>ML Engineer, remote senior listing</td><td class="num">$147K–$208K</td><td>+ bonus + equity</td></tr>
+        <tr><td>Microsoft</td><td>AI Engineer (all levels)</td><td>—</td><td class="num">$263K–$282K</td></tr>
+        <tr><td>Microsoft</td><td>Principal SWE, AI (region-dependent)</td><td class="num">$163K–$331K</td><td>—</td></tr>
+        <tr><td>Nvidia</td><td>AI Engineer</td><td>—</td><td class="num">$460K</td></tr>
+        <tr><td>Nvidia</td><td>ML Engineer, IC1–IC4</td><td class="num">$205K–$331K</td><td class="num">$261K</td></tr>
+        <tr><td>Databricks</td><td>Software Engineer, all levels</td><td class="num">$250K–$1.83M</td><td class="num">$447K</td></tr>
+        <tr><td>Scale AI</td><td>Software Engineer, all levels</td><td class="num">$234K–$577K</td><td class="num">$377K</td></tr>
+        <tr><td>OpenAI</td><td>Software Engineer, all levels</td><td class="num">$254K–$1.23M</td><td class="num">$810K</td></tr>
+        <tr><td>Anthropic</td><td>Frontier-lab band (general)</td><td class="num">$300K–$425K+</td><td>+ significant equity</td></tr>
+        <tr><td>Palantir</td><td>L1 (entry) → L3 (senior)</td><td class="num">$150K–$380K</td><td>—</td></tr>
+        <tr><td>National market</td><td>AI/ML Engineer, mainstream employers</td><td class="num">$134K–$193K</td><td class="num">$170.75K midpoint</td></tr>
+        <tr><td>National market</td><td>AI Engineer, all employers, all levels</td><td>—</td><td class="num">$211K–$242K</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:12.5px; color:var(--text-faint); margin-top:10px;">Sources: company career-page postings, Levels.fyi (accessed Jul 2026), Robert Half 2026 Salary Guide, Glassdoor. Total comp = base + bonus + equity at grant value; realized value for tenured staff at equity-heavy companies is often materially higher. Full list in §8.</p>
+
+  <div class="callout amber" style="margin-top:26px;">
+    <h4>Where your $140K+ target actually sits</h4>
+    <p>It's not a stretch number — it's close to the <em style="font-style:normal;">entry point</em>. Robert Half's national base range for AI/ML engineers starts at $134K before any equity or bonus. Nvidia, Microsoft, Databricks, and Palantir all show entry-to-mid bands that clear $140K comfortably. At true frontier labs (OpenAI, Anthropic), even junior compensation sits far above it — the binding constraint there isn't the offer size, it's getting through an extremely competitive door (see §9). The honest risk to your target isn't the number — it's <em style="font-style:normal;">which door you can realistically get through in month 6</em>, which is why §7 spreads your applications across the whole spectrum in this table, not just the five most famous logos.</p>
+  </div>
+
+  <div class="callout warn">
+    <h4>A geography note, for whoever's reading this</h4>
+    <p>Every figure above assumes a US-based hire. "Remote" postings at these companies are almost always restricted to specific countries where the company has a legal entity — that fine print matters more than the word "remote" itself. If you're outside the US, your realistic paths to these numbers are, in rough order of likelihood: (1) a regional engineering hub of the same company — Google, Microsoft, and Amazon all run large offices outside the US that hire locally at strong (if geographically-adjusted) bands; (2) a relocation-sponsored offer, which requires a genuinely standout application since sponsorship is an extra cost the employer weighs; (3) a remote-first AI-native company that hires globally by policy — rarer, and rarely at full US comp outside senior levels; (4) using a strong local or regional role as the stepping stone to an internal transfer later. Build the target company list in §7 with this in mind from week one, not in month 6.</p>
+  </div>
+
+</div></section>
+
+<section class="section" id="roadmap"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§3 — The Build</span>
+    <h2>26 weeks, 6 phases, one checkpoint per week</h2>
+    <p class="section-dek">Calibrated to what you already know — this does not re-teach loops, functions, or what a variable is. Every phase assumes ~30 hrs/week and ends with something deployed, not just something understood. Click a phase to expand it, then click any week for the full breakdown.</p>
+  </div>
+
+  <details class="phase" id="p1" open>
+    <summary><span class="phase-badge">PHASE 01</span><div><div>Foundations — compile the toolchain</div><span class="phase-meta">Weeks 1–4 · ~120 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">You already know SQL, C++, Java, and some Python — so this phase doesn't re-teach programming. It sharpens Python specifically for AI/data work, refreshes just enough math to reason about models (not prove theorems), and gets your engineering hygiene — git, Docker, cloud, APIs — to production grade. By week 4 you'll have deployed your first live endpoint.</p>
+
+      <details class="week"><summary><span class="week-num">WK 01</span><span class="week-title">Python, the way AI teams actually write it</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul>
+            <li>Idioms C++/Java habits don't give you: comprehensions, generators, context managers, *args/**kwargs, type hints, dataclasses, f-strings</li>
+            <li>Virtual environments and dependency management (venv, pip, requirements.txt)</li>
+            <li>NumPy fundamentals: arrays, broadcasting, vectorization — and why vectorized code beats loops</li>
+            <li>Reading Python tracebacks fluently — the single most time-saving debugging skill</li>
+          </ul>
+          <h5>Build</h5>
+          <ul><li>Rewrite a small program you'd normally write in Java/C++ (e.g. a CSV parser + aggregator) as idiomatic, vectorized Python/NumPy — benchmark it against a naive loop version and record the speedup</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Python official docs — "Classes" &amp; data model chapters · NumPy quickstart · Corey Schafer's Python OOP series (free, YouTube)</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w1" data-id="w1"><label for="cb-w1"><b>Checkpoint —</b> vectorized NumPy script + benchmark writeup committed to GitHub</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 02</span><span class="week-title">Data wrangling + your first API calls</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul>
+            <li>Pandas: dataframes, groupby, merges/joins, missing-data handling, apply vs. vectorized ops</li>
+            <li>SQL past the basics: window functions, CTEs, reading a query plan — this shows up directly in feature-pipeline interview questions</li>
+            <li>REST APIs in practice: the <span class="mono">requests</span> library, auth headers, retries with backoff</li>
+            <li>Your first real calls to the OpenAI and Anthropic APIs: system prompts, temperature, streaming</li>
+            <li>Linear algebra intuition: vectors, matrices, dot product, what an "embedding" geometrically is</li>
+          </ul>
+          <h5>Build</h5>
+          <ul><li>Pull a public dataset into Pandas, clean it, answer 5 analytical questions using window functions in <em style="font-style:normal">both</em> SQL and Pandas; separately, a 20-line script that sends the same prompt to OpenAI and Anthropic and diffs the two responses</li></ul>
+          <h5>Resources</h5>
+          <ul><li>3Blue1Brown — "Essence of Linear Algebra" (free) · Mode Analytics SQL tutorial (window functions) · official OpenAI &amp; Anthropic API quickstarts</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w2" data-id="w2"><label for="cb-w2"><b>Checkpoint —</b> data-cleaning notebook + working dual-API diff script on GitHub</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 03</span><span class="week-title">Math intuition + your first real ML model</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul>
+            <li>Probability &amp; statistics at an applied level: distributions, expectation/variance, Bayes' theorem, correlation vs. causation</li>
+            <li>The ML mental model: train/validation/test splits, overfitting vs. underfitting, bias-variance tradeoff</li>
+            <li>Evaluation metrics that actually matter: precision/recall/F1, ROC-AUC, confusion matrices — and when each one is the wrong choice</li>
+            <li>scikit-learn workflow: pipelines, cross-validation, hyperparameter search</li>
+          </ul>
+          <h5>Build</h5>
+          <ul><li>Pick a real, messy public dataset — <em style="font-style:normal">not</em> Titanic or Iris (a churn, fraud, or pricing dataset) — and build a full pipeline: clean → engineer features → train logistic regression + gradient boosting → evaluate properly → write a plain-English paragraph on which metric matters for this business problem and why</li></ul>
+          <h5>Resources</h5>
+          <ul><li>StatQuest with Josh Starmer (YouTube) · "Hands-On Machine Learning" by Aurélien Géron, ch. 1–3 · Google's Machine Learning Crash Course</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w3" data-id="w3"><label for="cb-w3"><b>Checkpoint —</b> end-to-end classical-ML notebook with a written metric justification</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 04</span><span class="week-title">Ship it: Docker, git, and your first live endpoint</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul>
+            <li>Git past <span class="mono">git add .</span>: branches, meaningful commits, pull requests, resolving conflicts</li>
+            <li>Docker fundamentals: images vs. containers, Dockerfile basics, multi-stage builds, why containers matter for reproducibility</li>
+            <li>FastAPI basics: routes, request/response models with Pydantic, automatic docs</li>
+            <li>Pick one cloud (AWS or GCP) — free tier, IAM basics, one compute service</li>
+          </ul>
+          <h5>Build</h5>
+          <ul><li>Wrap your Week 3 model in a FastAPI endpoint, containerize it with Docker, deploy to a free-tier host (Render, Fly.io, Railway, or AWS/GCP free tier) with a real public URL</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Docker's official "Get Started" guide · FastAPI official tutorial · freeCodeCamp Docker crash course (YouTube)</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w4" data-id="w4"><label for="cb-w4"><b>Checkpoint —</b> a live public URL serving predictions from your Week 3 model</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="phase" id="p2">
+    <summary><span class="phase-badge">PHASE 02</span><div><div>ML + Deep Learning core</div><span class="phase-meta">Weeks 5–8 · ~120 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">"AI coding" interview rounds at frontier labs ask you to implement k-means, attention, and batch norm from scratch — NumPy only, no PyTorch. This phase builds that muscle while giving you the deep-learning fluency everything downstream depends on.</p>
+
+      <details class="week"><summary><span class="week-num">WK 05</span><span class="week-title">Core supervised learning, some of it from scratch</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Linear &amp; logistic regression (derive the gradient by hand once), decision trees, random forests, gradient boosting (XGBoost/LightGBM), L1/L2 regularization, why boosting dominates tabular-data leaderboards</li></ul>
+          <h5>Build</h5>
+          <ul><li>Implement linear regression <em style="font-style:normal">and</em> k-means clustering from scratch using only NumPy — this exact pattern appears in AI-coding interview rounds. Validate both against scikit-learn's output</li></ul>
+          <h5>Resources</h5>
+          <ul><li>"Hands-On Machine Learning" ch. 4–7 · StatQuest gradient-boosting series · scikit-learn user guide</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w5" data-id="w5"><label for="cb-w5"><b>Checkpoint —</b> from-scratch k-means + linear regression, validated against scikit-learn</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 06</span><span class="week-title">Neural networks from first principles</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>The perceptron, multi-layer perceptrons, activation functions (ReLU/sigmoid/softmax), loss functions, backpropagation and gradient descent variants, batch normalization, dropout</li></ul>
+          <h5>Build</h5>
+          <ul><li>A small MLP from scratch in NumPy — forward pass <em style="font-style:normal">and manual backprop</em> — trained on a simple classification task. Re-implement the same network in PyTorch and confirm matching results</li></ul>
+          <h5>Resources</h5>
+          <ul><li>3Blue1Brown "Neural Networks" series (free) · Andrej Karpathy's "Neural Networks: Zero to Hero" (free, builds micrograd from scratch)</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w6" data-id="w6"><label for="cb-w6"><b>Checkpoint —</b> NumPy-only MLP with manual backprop, cross-checked against a PyTorch version</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 07</span><span class="week-title">PyTorch fluency</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Tensors and autograd, <span class="mono">nn.Module</span>, <span class="mono">Dataset</span>/<span class="mono">DataLoader</span> (and the classic <span class="mono">num_workers=0</span> performance trap), training loops, GPU basics via free Colab/Kaggle, a light pass on CNNs — enough to be conversant, since this roadmap specializes in language models, not vision</li></ul>
+          <h5>Build</h5>
+          <ul><li>Train an image classifier on a real dataset with a proper train/validation loop, learning-rate scheduling, and checkpoint saving</li></ul>
+          <h5>Resources</h5>
+          <ul><li>PyTorch official "60 Minute Blitz" + tutorials · fast.ai "Practical Deep Learning for Coders" (free, project-first)</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w7" data-id="w7"><label for="cb-w7"><b>Checkpoint —</b> PyTorch training run with saved checkpoints and a plotted validation curve</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 08</span><span class="week-title">Attention, from scratch</span></summary>
+        <div class="week-body">
+          <p style="margin-bottom:10px; color:var(--amber); font-size:13px;">The single most important interview topic in this entire roadmap.</p>
+          <h5>Learn</h5>
+          <ul><li>Tokenization, self-attention and multi-head attention, positional encoding, the encoder/decoder architecture, why transformers replaced RNNs — study the ideas behind "Attention Is All You Need" in your own words</li></ul>
+          <h5>Build</h5>
+          <ul><li>Implement scaled dot-product self-attention from scratch in NumPy or plain PyTorch tensors — no <span class="mono">nn.MultiheadAttention</span> — a documented AI-coding interview question at frontier labs. Then fine-tune a small pretrained model on a toy task with Hugging Face to close the full loop</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Jay Alammar — "The Illustrated Transformer" (free) · Andrej Karpathy — "Let's build GPT from scratch" (free video) · Hugging Face LLM Course, ch. 1–3</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w8" data-id="w8"><label for="cb-w8"><b>Checkpoint —</b> attention mechanism from scratch + a working Hugging Face fine-tuning run</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="phase" id="p3">
+    <summary><span class="phase-badge">PHASE 03</span><div><div>LLM + GenAI core</div><span class="phase-meta">Weeks 9–12 · ~120 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">This is where you specialize into AI Engineer specifically. Everything from here builds toward production LLM applications — RAG shows up in roughly 39% of AI Engineer postings versus 16% of ML Engineer postings.</p>
+
+      <details class="week"><summary><span class="week-num">WK 09</span><span class="week-title">Working the frontier APIs like an engineer, not a tourist</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>How tokenization actually works (and why it affects cost per language), context windows and their cost/latency tradeoffs, sampling parameters (temperature, top-p, top-k), structured/schema-constrained output generation, function calling / tool use, system-prompt design</li></ul>
+          <h5>Build</h5>
+          <ul><li>A CLI tool that takes unstructured text and returns validated, schema-constrained JSON (e.g. extracting invoice fields) using function calling against both an OpenAI and an Anthropic model, with retry logic for malformed output</li></ul>
+          <h5>Resources</h5>
+          <ul><li>DeepLearning.AI — "ChatGPT Prompt Engineering for Developers" · official OpenAI &amp; Anthropic docs on tool use / structured outputs</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w9" data-id="w9"><label for="cb-w9"><b>Checkpoint —</b> structured-extraction CLI tool with schema validation and retries</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 10</span><span class="week-title">Embeddings, vector databases, and your first RAG prototype</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Embedding models, similarity metrics (cosine, dot product), vector index structures (HNSW, IVF) conceptually, and when to reach for pgvector (under ~5–10M vectors, simplicity) vs. Qdrant/Weaviate/Pinecone (scale, filtering, managed ops)</li></ul>
+          <h5>Build</h5>
+          <ul><li>A naive RAG system: chunk a real document set, embed it, store it in pgvector or Qdrant, retrieve top-k, generate an answer with citations</li></ul>
+          <h5>Resources</h5>
+          <ul><li>DeepLearning.AI — "Vector Databases: from Embeddings to Applications" · pgvector and Qdrant quickstarts</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w10" data-id="w10"><label for="cb-w10"><b>Checkpoint —</b> naive RAG prototype answering questions with source citations</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 11</span><span class="week-title">Production-grade retrieval</span></summary>
+        <div class="week-body">
+          <p style="margin-bottom:10px; color:var(--amber); font-size:13px;">Flagship Project 1 starts here.</p>
+          <h5>Learn</h5>
+          <ul><li>Chunking-strategy tradeoffs (fixed vs. semantic, size/overlap), hybrid search (dense + BM25 via reciprocal rank fusion), cross-encoder reranking, query rewriting / HyDE, multi-turn context handling, graceful "I don't know" instead of hallucinating</li></ul>
+          <h5>Build</h5>
+          <ul><li>Upgrade Week 10's prototype into hybrid retrieval + reranking, now against a genuinely large, messy real-world corpus (see §4)</li></ul>
+          <h5>Resources</h5>
+          <ul><li>LangChain / LlamaIndex RAG docs · Cohere Rerank docs · DeepLearning.AI — "Building Agentic RAG with LlamaIndex"</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w11" data-id="w11"><label for="cb-w11"><b>Checkpoint —</b> hybrid-retrieval RAG with reranking, benchmarked against the naive version</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 12</span><span class="week-title">Fine-tuning, and knowing when not to</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>The decision framework interviewers explicitly probe for: RAG for large/changing/citation-needing knowledge; fine-tuning for behavior/format/style; long-context for whole-document reasoning; usually combined in practice. Parameter-efficient fine-tuning (LoRA, QLoRA, PEFT), quantization basics</li></ul>
+          <h5>Build</h5>
+          <ul><li>Fine-tune a small open model (Llama/Qwen/Mistral small variant) with LoRA on a narrow domain task; compare its outputs against your RAG system and a plain-prompting baseline on the same test questions</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Hugging Face PEFT docs · DeepLearning.AI — "Quantization Fundamentals" &amp; "Fine-tuning and RL for LLMs"</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w12" data-id="w12"><label for="cb-w12"><b>Checkpoint —</b> documented RAG-vs-fine-tune-vs-prompting comparison with real eval numbers</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="phase" id="p4">
+    <summary><span class="phase-badge">PHASE 04</span><div><div>Agents + Evals</div><span class="phase-meta">Weeks 13–16 · ~120 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">Multi-agent orchestration is flagged across multiple 2026 hiring analyses as the single biggest skill gap in AI engineering. This phase builds that, plus the evaluation discipline that separates people who ship demos from people who ship systems.</p>
+
+      <details class="week"><summary><span class="week-num">WK 13</span><span class="week-title">Your first agent</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>The ReAct loop (reason → act → observe → repeat), tool/function definitions, LangGraph fundamentals (state graphs, nodes, edges), why graph-based orchestration beats a hand-rolled while-loop once workflows branch</li></ul>
+          <h5>Build</h5>
+          <ul><li>A single agent with 2–3 real tools (web search + calculator + file reader) completing a multi-step task in LangGraph, with visible intermediate reasoning</li></ul>
+          <h5>Resources</h5>
+          <ul><li>DeepLearning.AI — "AI Agents in LangGraph" · LangGraph official docs · Hugging Face Agents Course</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w13" data-id="w13"><label for="cb-w13"><b>Checkpoint —</b> single-agent system with tool use and a visible reasoning trace</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 14</span><span class="week-title">Multi-agent systems + MCP</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Multi-agent patterns (sequential, supervisor/hierarchical, role-based crews), state handoffs, the Model Context Protocol (MCP) as the standard for connecting agents to tools and data, human-in-the-loop checkpoints for high-stakes actions</li></ul>
+          <h5>Build</h5>
+          <ul><li>A 2–3 agent supervisor system (e.g. research agent + writer agent + a supervisor that routes between them) with one MCP-based tool connection and one human-approval gate before any "final" action</li></ul>
+          <h5>Resources</h5>
+          <ul><li>LangGraph multi-agent tutorials · CrewAI docs (role-based alternative) · the official Model Context Protocol spec &amp; quickstart</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w14" data-id="w14"><label for="cb-w14"><b>Checkpoint —</b> multi-agent system with supervisor routing, state handoffs, and a human-in-the-loop gate</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 15</span><span class="week-title">Evaluation: proving your system actually works</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Why "it works on my 3 test prompts" isn't evidence; building a golden dataset (50–100 labeled examples); RAG-specific metrics (faithfulness, answer relevance, context precision/recall via RAGAS); LLM-as-judge patterns and their failure modes; running evals as automated regression tests, not manual spot checks</li></ul>
+          <h5>Build</h5>
+          <ul><li>A 50+ question golden dataset for your RAG system, wired into RAGAS and DeepEval for faithfulness/relevance scores, plus a pytest suite that fails the build on regression</li></ul>
+          <h5>Resources</h5>
+          <ul><li>RAGAS docs · DeepEval docs (pytest integration) · DeepLearning.AI — "Automated Testing for LLMOps"</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w15" data-id="w15"><label for="cb-w15"><b>Checkpoint —</b> automated eval suite producing faithfulness/relevance scores as a runnable regression test</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 16</span><span class="week-title">Observability: cost, latency, and what breaks in production</span></summary>
+        <div class="week-body">
+          <p style="margin-bottom:10px; color:var(--amber); font-size:13px;">Flagship Project 2 comes together here.</p>
+          <h5>Learn</h5>
+          <ul><li>Distributed tracing for LLM calls (spans across retrieval → generation → tool calls), token/cost tracking per request, latency budgets, semantic + exact-match caching, streaming</li></ul>
+          <h5>Build</h5>
+          <ul><li>Instrument your RAG and agent systems with Langfuse or Arize Phoenix (both have generous free/self-hosted tiers); build a cost + latency dashboard with one working alert</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Langfuse docs · Arize Phoenix docs · DeepLearning.AI — "LLMOps"</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w16" data-id="w16"><label for="cb-w16"><b>Checkpoint —</b> full tracing + a cost/latency dashboard wired to an alert; Flagship Project 2 substantially complete</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="phase" id="p5">
+    <summary><span class="phase-badge">PHASE 05</span><div><div>Production + MLOps</div><span class="phase-meta">Weeks 17–20 · ~120 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">The phase most self-taught AI engineers skip entirely — and exactly why over 70% of hiring managers say they specifically screen for deployment-tool familiarity. You asked for this explicitly; here it is in full.</p>
+
+      <details class="week"><summary><span class="week-num">WK 17</span><span class="week-title">Backend engineering for AI apps</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>FastAPI in depth (async endpoints, dependency injection, Pydantic validation), streaming responses (Server-Sent Events), authentication, rate limiting, input sanitization against prompt injection</li></ul>
+          <h5>Build</h5>
+          <ul><li>Turn one of your agent/RAG systems into a properly authenticated, rate-limited API with token-by-token streaming</li></ul>
+          <h5>Resources</h5>
+          <ul><li>FastAPI official docs (async + streaming) · OWASP Top 10 for LLM Applications</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w17" data-id="w17"><label for="cb-w17"><b>Checkpoint —</b> authenticated, rate-limited, streaming API in front of a real AI system</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 18</span><span class="week-title">Containers, CI/CD, and real deployment</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Multi-stage Docker builds, GitHub Actions for CI/CD (test → build → deploy on merge), environment/secrets management, deploying to a real cloud target</li></ul>
+          <h5>Build</h5>
+          <ul><li>A CI/CD pipeline that runs your Week 15 eval suite on every pull request, blocks merges on regression, and auto-deploys on success</li></ul>
+          <h5>Resources</h5>
+          <ul><li>GitHub Actions docs · your chosen cloud provider's container-deployment quickstart</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w18" data-id="w18"><label for="cb-w18"><b>Checkpoint —</b> a CI/CD pipeline that gates deploys on passing evals</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 19</span><span class="week-title">MLOps: the plumbing behind reliable ML</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Experiment tracking (MLflow or Weights &amp; Biases), model/data versioning (DVC), model registries, feature stores conceptually (why training/serving skew happens), orchestration tools at a conceptual level (Airflow/Kubeflow)</li></ul>
+          <h5>Build</h5>
+          <ul><li>Add MLflow experiment tracking retroactively to your Phase 2 classical-ML and PyTorch work; version your datasets with DVC</li></ul>
+          <h5>Resources</h5>
+          <ul><li>MLflow quickstart · DVC "Get Started" · Feast documentation (conceptual read)</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w19" data-id="w19"><label for="cb-w19"><b>Checkpoint —</b> MLflow-tracked experiments with DVC-versioned data for at least one earlier project</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 20</span><span class="week-title">Monitoring, drift, and graceful failure</span></summary>
+        <div class="week-body">
+          <p style="margin-bottom:10px; color:var(--amber); font-size:13px;">Flagship Project 3 completes here.</p>
+          <h5>Learn</h5>
+          <ul><li>Data/model drift detection concepts, alerting design (what's worth an alert), fallback and graceful-degradation patterns, guardrails and content-safety filters, structured logging</li></ul>
+          <h5>Build</h5>
+          <ul><li>Take your strongest system so far and add a drift/anomaly alert (e.g. a Slack webhook firing on a faithfulness or latency threshold breach) plus one fallback path</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Evidently AI docs (open-source drift detection) · Grafana + Prometheus basics</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w20" data-id="w20"><label for="cb-w20"><b>Checkpoint —</b> a production system with an active drift alert and a working fallback path</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="phase" id="p6">
+    <summary><span class="phase-badge">PHASE 06</span><div><div>System Design + Job Search</div><span class="phase-meta">Weeks 21–26 · ~180 hrs</span></div></summary>
+    <div class="phase-body">
+      <p class="phase-intro">Six weeks, three jobs: get sharp on system design, get interview-ready, and get your name in front of the right people. Applications start now — not after everything feels perfect, because nothing ever does.</p>
+
+      <details class="week"><summary><span class="week-num">WK 21</span><span class="week-title">ML/AI system design, drilled</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>The structured framework in §5, the knowledge-strategy decision tree (RAG vs. fine-tune vs. long-context vs. tools), inference-serving concepts (dynamic/continuous batching, KV-cache, backpressure)</li></ul>
+          <h5>Build</h5>
+          <ul><li>Design — out loud, recorded, then self-critiqued — at least 5 systems from the practice list in §5</li></ul>
+          <h5>Resources</h5>
+          <ul><li>§5 of this document · Exponent and IGotAnOffer ML system design guides</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w21" data-id="w21"><label for="cb-w21"><b>Checkpoint —</b> 5 recorded system-design walkthroughs, self-critiqued against the framework</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 22</span><span class="week-title">Coding: DSA plus "AI coding from scratch"</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Targeted DSA patterns (arrays/strings, trees/graphs, two-pointer, sliding window — pattern recognition, not exhaustive grinding); re-drilling k-means, attention, batch norm, and a small MLP from Phase 2 until you can write them cold</li></ul>
+          <h5>Build</h5>
+          <ul><li>2 DSA problems/day at medium difficulty; twice a week, re-implement one "from scratch" algorithm timed, with no reference</li></ul>
+          <h5>Resources</h5>
+          <ul><li>NeetCode's curated pattern list (free) · your own Phase 2 implementations as flashcards</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w22" data-id="w22"><label for="cb-w22"><b>Checkpoint —</b> can implement attention and k-means from scratch, cold, in under 20 minutes each</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 23</span><span class="week-title">Behavioral prep + portfolio finalization</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>The STAR method done well (specific, quantified, a genuine lesson — not a rehearsed script); company-specific behavioral signals (Amazon's Leadership Principles, Microsoft's growth-mindset framing, Anthropic/OpenAI's values-alignment questions); what makes a README actually get read</li></ul>
+          <h5>Build</h5>
+          <ul><li>6–8 STAR stories mapped to your flagship projects (a hard bug, a scope tradeoff, a time you were wrong, a time you pushed back); rewrite every project README; record a 90-second walkthrough per project</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Your own build logs as raw material · target companies' "life at X" pages for values language</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w23" data-id="w23"><label for="cb-w23"><b>Checkpoint —</b> 6+ STAR stories rehearsed out loud; all project READMEs rewritten</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 24</span><span class="week-title">Mock interviews + final polish</span></summary>
+        <div class="week-body">
+          <h5>Focus</h5>
+          <ul><li>No new material by design — this week is deliberate practice under simulated pressure</li></ul>
+          <h5>Build</h5>
+          <ul><li>4+ mock interviews split across coding, system design, and behavioral; record yourself, watch it back, fix the single worst habit each time; finish polishing and deploy any project still sitting local-only</li></ul>
+          <h5>Resources</h5>
+          <ul><li>Peer-swap mocks, interviewing.io-style platforms, or the communities in §8</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w24" data-id="w24"><label for="cb-w24"><b>Checkpoint —</b> 4+ mock interviews completed with self-review notes; all flagship projects live</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 25</span><span class="week-title">Application sprint 1</span></summary>
+        <div class="week-body">
+          <h5>Focus</h5>
+          <ul><li>Volume with intent, not spray-and-pray</li></ul>
+          <h5>Build</h5>
+          <ul><li>Apply directly on company career pages (not just LinkedIn Easy Apply) to 15–20 roles matched to your actual level (§7); send 20+ specific, personalized outreach messages (expect roughly 1 referral per 15–20 genuine messages, not cold spam); publish one build-in-public post about your strongest project</li></ul>
+          <h5>Resources</h5>
+          <ul><li>§7 — the company career-page and job-board list</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w25" data-id="w25"><label for="cb-w25"><b>Checkpoint —</b> 15+ direct applications submitted, 20+ outreach messages sent</label></div>
+        </div>
+      </details>
+
+      <details class="week"><summary><span class="week-num">WK 26</span><span class="week-title">Application sprint 2 + negotiate</span></summary>
+        <div class="week-body">
+          <h5>Learn</h5>
+          <ul><li>Compensation-negotiation basics: avoid anchoring first if you can, negotiate total comp not just base, use the data in §2 as your reference point</li></ul>
+          <h5>Build</h5>
+          <ul><li>Apply to another 15–20 roles; keep interviewing and mocking in parallel; if an offer lands, take at least 48 hours and re-check §2 before responding</li></ul>
+          <h5>Resources</h5>
+          <ul><li>§2 of this document, filtered to your specific target companies</li></ul>
+          <div class="checkpoint"><input type="checkbox" id="cb-w26" data-id="w26"><label for="cb-w26"><b>Checkpoint —</b> 30+ applications active; a real interview loop in motion</label></div>
+        </div>
+      </details>
+    </div>
+  </details>
+
+</div></section>
+
+<section class="section" id="projects"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§4 — Flagship Projects</span>
+    <h2>Five projects. Not a chatbot wrapper, not Titanic, not Iris.</h2>
+    <p class="section-dek">Hiring managers report scanning hundreds of portfolios with the same three demos. What actually gets a callback in 2026, per multiple independent engineering-hiring analyses: fewer projects, each carrying real evaluation, real deployment, and a documented failure analysis — not a happy-path notebook. Five strong builds beat twenty shallow ones. Build them in the order the roadmap introduces them.</p>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head">
+      <div class="proj-tier">FLAGSHIP 1 — BUILT IN PHASE 3</div>
+      <h3>Domain Document Intelligence System</h3>
+      <p class="proj-why">A production-grade RAG system over a genuinely large, messy real corpus — not five clean PDFs. Pick a domain with real structure to fight: public tax code + case law, a country's open-data regulatory filings, a large open-source project's full documentation + GitHub issues, or public company annual reports. The point is realistic messiness: multi-column PDFs, tables, cross-references, contradictions between documents.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-col">
+        <h5>Must include</h5>
+        <ul>
+          <li>Hybrid retrieval (dense + BM25) with cross-encoder reranking</li>
+          <li>A justified chunking strategy — written down, not just chosen by default</li>
+          <li>Citation grounding: every answer points to its source passage</li>
+          <li>A 50–100 question golden dataset scored with RAGAS (faithfulness, relevance, context precision)</li>
+          <li>Graceful "I don't know" instead of a confident wrong answer</li>
+          <li>Deployed with a live, clickable demo URL</li>
+        </ul>
+      </div>
+      <div class="proj-col">
+        <h5>What it proves to a hiring manager</h5>
+        <ul>
+          <li>You understand retrieval is the actual hard problem, not the model</li>
+          <li>You measure quality instead of eyeballing three example outputs</li>
+          <li>You can take a system from notebook to something a stranger can click</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">LangChain / LlamaIndex</span><span class="tag">pgvector or Qdrant</span><span class="tag">Cohere Rerank</span><span class="tag">RAGAS</span><span class="tag">FastAPI</span><span class="tag">Docker</span>
+    </div>
+    <div style="padding:0 26px 24px;"><div class="checkpoint"><input type="checkbox" id="cb-proj1" data-id="proj1"><label for="cb-proj1"><b>Checkpoint —</b> live demo URL, 50+ question eval scored with RAGAS, README with architecture + decisions</label></div></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head">
+      <div class="proj-tier">FLAGSHIP 2 — BUILT IN PHASE 4</div>
+      <h3>Autonomous Multi-Agent Ops System</h3>
+      <p class="proj-why">Multi-agent orchestration is the most commonly cited skill gap in 2026 agent-engineering hiring. Build something that does real, boring, valuable work autonomously: a system that triages incoming GitHub issues on a real open-source repo (classify, draft a response, escalate ambiguous ones), or a document-analysis crew (research agent → analyst agent → report-writer agent, supervised).</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-col">
+        <h5>Must include</h5>
+        <ul>
+          <li>A supervisor pattern with real state handoffs between at least 2–3 agents</li>
+          <li>Checkpointing so a long-running task can resume after a crash</li>
+          <li>One human-in-the-loop approval gate before any consequential action</li>
+          <li>An evaluation layer that scores the agent's <em style="font-style:normal">trajectory</em>, not just its final answer</li>
+          <li>Visible cost controls — a budget the agent can't blow past</li>
+        </ul>
+      </div>
+      <div class="proj-col">
+        <h5>What it proves to a hiring manager</h5>
+        <ul>
+          <li>You can build autonomy with safety rails, not a fragile demo that only works on the happy path</li>
+          <li>You think about what happens when a tool call fails mid-task, not just when it succeeds</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">LangGraph</span><span class="tag">MCP</span><span class="tag">Claude / OpenAI API</span><span class="tag">Postgres checkpointer</span><span class="tag">DeepEval</span>
+    </div>
+    <div style="padding:0 26px 24px;"><div class="checkpoint"><input type="checkbox" id="cb-proj2" data-id="proj2"><label for="cb-proj2"><b>Checkpoint —</b> multi-agent system live with a human-approval gate and trajectory-level evaluation</label></div></div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head">
+      <div class="proj-tier">FLAGSHIP 3 — BUILT IN PHASE 4/5</div>
+      <h3>LLM Evaluation &amp; Regression-Testing Harness</h3>
+      <p class="proj-why">A meta-project, and arguably the highest-leverage one: build a reusable evaluation framework that gates deploys of Flagships 1 and 2. Most AI engineers ship without this — it's explicitly named as the #1 gap between people who "completed the LLM course" and people who get hired.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-col">
+        <h5>Must include</h5>
+        <ul>
+          <li>Golden datasets per system, version-controlled alongside the code</li>
+          <li>An LLM-as-judge implementation with documented failure modes (when does the judge itself get it wrong?)</li>
+          <li>Integration into GitHub Actions — evals run on every pull request</li>
+          <li>A small dashboard tracking pass-rate over time, so regressions are visible, not discovered by users</li>
+        </ul>
+      </div>
+      <div class="proj-col">
+        <h5>What it proves to a hiring manager</h5>
+        <ul>
+          <li>Production discipline applied to a genuinely hard problem — testing non-deterministic systems</li>
+          <li>You'll say "here's the eval score" in an interview, not "it feels pretty good"</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">DeepEval</span><span class="tag">RAGAS</span><span class="tag">pytest</span><span class="tag">GitHub Actions</span>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head">
+      <div class="proj-tier">FLAGSHIP 4 — BUILT IN PHASE 5</div>
+      <h3>Full Observability &amp; Cost/Latency Dashboard</h3>
+      <p class="proj-why">Take your strongest earlier system and fully instrument it for what happens after launch day — the "what breaks at 2am" thinking that research consistently flags as what separates hires from rejections at the senior end.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-col">
+        <h5>Must include</h5>
+        <ul>
+          <li>Full distributed tracing (Langfuse or Arize Phoenix) across retrieval, generation, and tool calls</li>
+          <li>A cost-per-query and latency-percentile dashboard</li>
+          <li>A documented fallback path — a cheaper/smaller model or cached answer under budget or outage pressure</li>
+          <li>A load test showing behavior under concurrent traffic, not just one request at a time</li>
+        </ul>
+      </div>
+      <div class="proj-col">
+        <h5>What it proves to a hiring manager</h5>
+        <ul>
+          <li>SRE-adjacent instincts — you think about reliability, not just capability</li>
+          <li>You can talk fluently about cost/latency tradeoffs in a system design interview because you've actually measured one</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">Langfuse / Arize Phoenix</span><span class="tag">Grafana</span><span class="tag">Prometheus</span><span class="tag">k6 / Locust</span>
+    </div>
+  </div>
+
+  <div class="proj">
+    <div class="proj-head">
+      <div class="proj-tier">FLAGSHIP 5 — OPTIONAL / STRETCH</div>
+      <h3>Fine-Tuned Domain Specialist, Benchmarked Honestly</h3>
+      <p class="proj-why">Optional, but it closes a gap the other four don't: proof you reach for fine-tuning only when it's actually the right tool, not by default. Fine-tune a small open model on a narrow, well-defined task or format.</p>
+    </div>
+    <div class="proj-grid">
+      <div class="proj-col">
+        <h5>Must include</h5>
+        <ul>
+          <li>LoRA/QLoRA fine-tuning of a small open model (Llama, Qwen, or Mistral variant)</li>
+          <li>A head-to-head comparison against RAG and plain-prompting baselines, on the same eval set</li>
+          <li>A written decision memo: why fine-tuning won (or didn't) for this specific task</li>
+        </ul>
+      </div>
+      <div class="proj-col">
+        <h5>What it proves to a hiring manager</h5>
+        <ul>
+          <li>You understand the full toolkit — RAG isn't a hammer for every problem, and neither is fine-tuning</li>
+        </ul>
+      </div>
+    </div>
+    <div class="proj-stack">
+      <span class="tag">Hugging Face PEFT</span><span class="tag">bitsandbytes</span><span class="tag">Weights &amp; Biases</span>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <h4>Presentation matters as much as the build</h4>
+    <p>Every README needs: a one-sentence problem statement, an architecture diagram (even a simple boxes-and-arrows one), the tech stack, setup instructions, a live demo link, and a "technical decisions" section explaining <em style="font-style:normal">why</em> you chose this vector database or that chunking size — not just that you did. Deploy every project to a public URL; a live demo a hiring manager can click is worth far more than a repo they have to run locally. Write one short post per project (LinkedIn or a blog) — this is also how referrals in §7 actually happen.</p>
+  </div>
+
+</div></section>
+
+<section class="section" id="sysdesign"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§5 — System Design Playbook</span>
+    <h2>The framework, then the questions to drill it against</h2>
+    <p class="section-dek">System design carries the most weight of any round in a 2026 AI-engineering loop — it's where the strongest candidates show their ceiling and the mediocre ones run out of depth fastest. One recurring line from practitioners doing these interviews now: "evaluation methodology is the new system design" — interviewers increasingly care more about cost, latency, guardrails, and monitoring than about the architecture diagram itself.</p>
+  </div>
+
+  <h3 style="font-size:1.2rem; margin-bottom:16px;">A structured way to walk through any design question</h3>
+  <div class="grid-3">
+    <div class="card"><h3><span class="mono-tag">01–02</span>Clarify, then frame</h3><p>Pin down scale, latency, and accuracy requirements before drawing anything. Frame the business problem as an ML/AI problem: what's the objective, what does "success" mean numerically?</p></div>
+    <div class="card"><h3><span class="mono-tag">03–04</span>Data &amp; features</h3><p>Where does data come from, how is it validated, batch vs. streaming? For classic ML: offline/online feature stores and how you prevent training-serving skew.</p></div>
+    <div class="card"><h3><span class="mono-tag">05–06</span>Model &amp; knowledge strategy</h3><p>For AI-engineer-flavored questions, this is the decision that matters most: <b style="color:var(--text)">RAG</b> for large/changing/citation-needing knowledge, <b style="color:var(--text)">fine-tuning</b> for behavior/format/style, <b style="color:var(--text)">long-context</b> for whole-document reasoning, <b style="color:var(--text)">tools/memory</b> for actions and state — usually combined.</p></div>
+    <div class="card"><h3><span class="mono-tag">07</span>Serving</h3><p>Latency budget, dynamic vs. continuous batching, KV-cache reuse, model routing (cheap model for easy traffic), backpressure and queue limits under load.</p></div>
+    <div class="card"><h3><span class="mono-tag">08</span>Evaluation &amp; monitoring</h3><p>Offline eval before ship, online metrics after — drift detection, quality regression alerts, A/B testing, rollback strategy. In 2026 loops, this step gets as much airtime as the architecture itself.</p></div>
+    <div class="card"><h3><span class="mono-tag">09</span>Iterate</h3><p>What would you change with more time or scale? Naming this proactively signals seniority even when time runs out before you get there.</p></div>
+  </div>
+  <p style="font-size:12.5px; color:var(--text-faint); margin-top:14px;">Adapted from the widely-used 9-step ML system design framework (see alirezadir's "Machine-Learning-Interviews" repo, §8) with the modern knowledge-strategy layer added for LLM-era questions.</p>
+
+  <div class="callout amber">
+    <h4>The four most common failure modes</h4>
+    <p>1) Jumping straight to a diagram before clarifying requirements. 2) Treating the model as a black box instead of discussing latency budgets, versioning, and rollback. 3) Picking RAG or fine-tuning by reflex instead of justifying the choice against the requirements. 4) Never mentioning monitoring at all — several interviewers on record say this alone is enough to sink an otherwise strong answer.</p>
+  </div>
+
+  <h3 style="font-size:1.2rem; margin:34px 0 16px;">Practice questions — design these out loud, then record yourself</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Prompt</th><th>Asked at</th><th>Core tension</th></tr></thead>
+      <tbody>
+        <tr><td>Design a RAG assistant answering policy questions from 5M PDFs, p95 latency under 2s</td><td>Amazon</td><td>Retrieval speed vs. accuracy at real scale</td></tr>
+        <tr><td>Design an ML monitoring system: drift, performance, outliers, and quality</td><td>General / fintech</td><td>What's worth alerting on vs. noise</td></tr>
+        <tr><td>Design a recommendation system (e.g. "Top Picks" style)</td><td>Meta, Pinterest, Netflix</td><td>Cold start, feedback loops, offline/online consistency</td></tr>
+        <tr><td>Design an evaluation framework for ads ranking</td><td>Meta</td><td>Metric selection, counterfactual evaluation</td></tr>
+        <tr><td>Design an LLM inference-serving layer for a chat product</td><td>General AI-engineer loops</td><td>Batching strategy, KV-cache, cost-per-token at scale</td></tr>
+        <tr><td>Design a feature store shared by training and serving</td><td>Snowflake, Databricks-adjacent</td><td>Preventing training/serving skew, point-in-time correctness</td></tr>
+        <tr><td>Design an agentic system with tool use and human approval steps</td><td>Frontier labs, applied AI teams</td><td>Autonomy vs. safety, failure recovery mid-task</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div></section>
+
+<section class="section" id="interview"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§6 — Interview Preparation</span>
+    <h2>Five dimensions, not one</h2>
+    <p class="section-dek">Standard advice covers maybe 40% of what an AI-engineer loop actually tests. It's five overlapping dimensions, and skipping any one of them is a common way strong candidates still get a no-hire.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3><span class="mono-tag">01</span>SWE coding</h3><p>1–2 problems, 40–45 minutes. Data structures, algorithms, tree/graph traversal. Not the differentiator, but a hard gate — a miss here often means instant rejection regardless of everything else.</p></div>
+    <div class="card"><h3><span class="mono-tag">02</span>"AI coding"</h3><p>Implement k-means, attention, or batch norm from scratch — NumPy only, no PyTorch. This is the round most candidates freeze on because they prepared for standard SWE coding and nothing else. Phase 2 and Week 22 of the roadmap exist specifically for this.</p></div>
+    <div class="card"><h3><span class="mono-tag">03</span>System design</h3><p>Usually the highest-weighted round at senior level, and where §5's framework pays off. Increasingly includes an evaluation/monitoring sub-round distinct from architecture.</p></div>
+    <div class="card"><h3><span class="mono-tag">04</span>Domain deep-dive</h3><p>For AI/LLM-focused roles: conversational AI, RAG design, agent architecture. Shallow answers read as "hasn't actually built this" — your flagship projects are the antidote.</p></div>
+    <div class="card"><h3><span class="mono-tag">05</span>Behavioral</h3><p>Company-specific values, not generic STAR. A single weak behavioral round can undo four hours of strong technical performance — treat it with equal prep weight.</p></div>
+  </div>
+
+  <h3 style="font-size:1.2rem; margin:34px 0 16px;">Company-specific notes</h3>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Company</th><th>What's distinctive about their loop</th></tr></thead>
+      <tbody>
+        <tr><td>Amazon</td><td>The Bar Raiser round (an interviewer from an unrelated org) carries outsized weight; Leadership Principle stories need to be specific and quantified, not theoretical</td></tr>
+        <tr><td>Meta</td><td>Tech screen: 2 medium coding problems in ~40–45 min. Onsite: 2 coding rounds + ML system design tied to real Meta products (feed ranking, ads) + strong emphasis on explaining tradeoffs to non-technical stakeholders</td></tr>
+        <tr><td>Microsoft</td><td>Growth-mindset framing runs through behavioral rounds — vague answers score poorly; expects evidence of end-to-end ownership (data → model → serving → iteration), not narrow task execution</td></tr>
+        <tr><td>Google / DeepMind</td><td>Coding + system design + behavioral + a "Googleyness" culture-fit dimension; research-adjacent roles may include a writing sample or publication link</td></tr>
+        <tr><td>Anthropic / OpenAI</td><td>Coding screens use tools like Colab/CodeSignal where you can look things up — the bar is engineering judgment, not memorized syntax. Values-alignment questions are common and reward honest, specific answers over rehearsed mission language</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn" style="margin-top:26px;">
+    <h4>The behavioral round is not optional prep</h4>
+    <p>Across every company researched, the same pattern recurs: strong technical performers still get a "no" because of thin, generic, or rehearsed-sounding behavioral answers. Week 23 of the roadmap is built specifically to fix this — STAR stories drawn directly from your flagship projects, not invented scenarios.</p>
+  </div>
+
+</div></section>
+
+<section class="section" id="applications"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§7 — Application Strategy</span>
+    <h2>Where to actually apply, and the math behind referrals</h2>
+    <p class="section-dek">Recruiters increasingly ask for links before resumes — GitHub repos, live demos, deployed apps. But the applications still have to go somewhere specific. Apply directly on career pages first; job boards second.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card"><h3>Big tech, direct</h3><ul><li>careers.google.com</li><li>metacareers.com</li><li>amazon.jobs</li><li>careers.microsoft.com</li><li>nvidia.com/en-us/about-nvidia/careers</li></ul></div>
+    <div class="card"><h3>Frontier labs, direct</h3><ul><li>anthropic.com/careers</li><li>openai.com/careers (check the Residency &amp; Emerging Talent tracks — explicitly built for career-changers)</li><li>deepmind.google/careers</li></ul></div>
+    <div class="card"><h3>Big data / AI-native, direct</h3><ul><li>databricks.com/company/careers</li><li>snowflake.com/careers</li><li>scale.com/careers</li><li>palantir.com/careers</li></ul></div>
+    <div class="card"><h3>Aggregators worth using</h3><ul><li>LinkedIn Jobs (set alerts, don't rely on Easy Apply alone)</li><li>Levels.fyi (comp research + some postings)</li><li>Wellfound / AngelList (AI-native startups)</li><li>Built In (city-specific tech scenes)</li></ul></div>
+    <div class="card"><h3>Search titles beyond "AI Engineer"</h3><ul><li>Machine Learning Engineer</li><li>Applied AI Engineer / Applied Scientist</li><li>LLM Engineer, Agentic AI Engineer, AIOps Engineer</li><li>Forward Deployed Engineer</li></ul></div>
+    <div class="card"><h3>Networking, with real numbers</h3><ul><li>Expect roughly one genuine referral per 15–20 specific, personalized outreach messages — not mass-sent templates</li><li>Build-in-public posts about your flagship projects are how people find you before you find them</li></ul></div>
+  </div>
+
+  <div class="callout warn" style="margin-top:26px;">
+    <h4>The honest state of entry-level hiring right now</h4>
+    <p>This matters enough to say plainly: new-grad hiring at the largest tech companies has fallen sharply since 2022 by multiple independent measures, and only a small single-digit share of AI/ML engineer postings are explicitly entry-level. This doesn't make the plan pointless — it means your applications should span the <em style="font-style:normal">whole</em> table above, not just the five most famous names, and that a strong offer from Databricks, Scale AI, a well-funded startup, or a big data firm's applied team is a genuine win, not a consolation prize. Total comp at several of these non-"Big Five" names in §2 matches or beats plenty of Big Five bands.</p>
+  </div>
+
+  <div class="callout info">
+    <h4>If you're applying from outside the US</h4>
+    <p>Check the fine print on every "remote" posting — most are restricted to countries where the company has a legal entity to employ you in. Your strongest paths: a regional engineering office of the same company (several of the employers above run large hubs outside the US that hire locally), a relocation-sponsored offer backed by a genuinely standout application, or a globally-distributed AI-native company that hires remote by policy. Build your target list in this section with that reality in mind from week one, not after 20 rejections from postings that were never open to you in the first place.</p>
+  </div>
+
+</div></section>
+
+<section class="section" id="resources"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§8 — Resources</span>
+    <h2>What to actually use, mapped to the phase that needs it</h2>
+    <p class="section-dek">Curated, not exhaustive — every item below was checked for currency. Free-first; paid options noted where they genuinely add something free content doesn't.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>For</th><th>Resource</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Math intuition</td><td>3Blue1Brown — "Essence of Linear Algebra" &amp; "Neural Networks"; StatQuest with Josh Starmer</td><td class="num">Free</td></tr>
+        <tr><td>Python → ML fundamentals</td><td>"Hands-On Machine Learning" (Aurélien Géron); Google Machine Learning Crash Course</td><td>Book / Free</td></tr>
+        <tr><td>Deep learning from scratch</td><td>Andrej Karpathy — "Neural Networks: Zero to Hero"; fast.ai "Practical Deep Learning for Coders"</td><td class="num">Free</td></tr>
+        <tr><td>Transformers &amp; attention</td><td>Jay Alammar — "The Illustrated Transformer"; Hugging Face LLM Course</td><td class="num">Free</td></tr>
+        <tr><td>RAG &amp; vector databases</td><td>DeepLearning.AI — "Vector Databases: from Embeddings to Applications," "Building and Evaluating Advanced RAG," "Building Agentic RAG with LlamaIndex"</td><td>Free to audit</td></tr>
+        <tr><td>Agents</td><td>DeepLearning.AI — "AI Agents in LangGraph"; Hugging Face Agents Course; LangGraph &amp; CrewAI official docs</td><td class="num">Free</td></tr>
+        <tr><td>Fine-tuning &amp; quantization</td><td>DeepLearning.AI — "Quantization Fundamentals," "Fine-tuning and RL for LLMs"; Hugging Face PEFT docs</td><td>Free to audit</td></tr>
+        <tr><td>Evaluation &amp; LLMOps</td><td>RAGAS docs; DeepEval docs; DeepLearning.AI — "LLMOps," "Automated Testing for LLMOps"</td><td>Free / audit</td></tr>
+        <tr><td>MLOps end-to-end</td><td>DataTalksClub — MLOps Zoomcamp (free, GitHub-hosted, cohort-based)</td><td class="num">Free</td></tr>
+        <tr><td>System design</td><td>alirezadir — "Machine-Learning-Interviews" GitHub repo; Exponent &amp; IGotAnOffer ML system design guides</td><td>Free / paid tiers</td></tr>
+        <tr><td>Coding patterns</td><td>NeetCode curated pattern list</td><td class="num">Free</td></tr>
+        <tr><td>Structured full path (optional)</td><td>DeepLearning.AI AI Engineer specialization; IBM Generative AI Engineering Professional Certificate</td><td>Paid</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.1rem; margin:32px 0 14px;">Sources used to build this document</h3>
+  <div class="src-list">
+    <a href="https://www.google.com/about/careers/applications/ai" target="_blank">Google Careers — AI</a>
+    <a href="https://deepmind.google/careers/" target="_blank">Google DeepMind Careers</a>
+    <a href="https://www.metacareers.com/teams/technology/ai/" target="_blank">Meta Careers — AI</a>
+    <a href="https://www.amazon.jobs/content/en/artificial-intelligence-ai" target="_blank">Amazon Careers — AI</a>
+    <a href="https://microsoft.ai/careers/" target="_blank">Microsoft AI Careers</a>
+    <a href="https://www.anthropic.com/careers" target="_blank">Anthropic Careers</a>
+    <a href="https://openai.com/careers/" target="_blank">OpenAI Careers</a>
+    <a href="https://www.databricks.com/company/careers" target="_blank">Databricks Careers</a>
+    <a href="https://www.levels.fyi/" target="_blank">Levels.fyi — compensation data</a>
+    <a href="https://www.glassdoor.com/" target="_blank">Glassdoor — compensation &amp; postings</a>
+    <a href="https://www.datainterview.com/blog/amazon-ai-engineer-interview" target="_blank">DataInterview — Amazon AI Engineer Guide</a>
+    <a href="https://www.datainterview.com/blog/meta-machine-learning-engineer-interview" target="_blank">DataInterview — Meta MLE Guide</a>
+    <a href="https://www.datainterview.com/blog/microsoft-ai-engineer-interview" target="_blank">DataInterview — Microsoft AI Engineer Guide</a>
+    <a href="https://www.datainterview.com/blog/system-design-interview-questions" target="_blank">DataInterview — System Design Questions</a>
+    <a href="https://www.interviewstack.io/blog/ai-engineer-vs-machine-learning-engineer-2026" target="_blank">InterviewStack — AI vs ML Engineer 2026</a>
+    <a href="https://www.ayautomate.com/blog/ai-engineer-vs-ml-engineer" target="_blank">AY Automate — AI vs ML Engineer</a>
+    <a href="https://dataexec.io/p/breaking-into-ai-in-2026-what-anthropic-openai-and-meta-actually-hire-for" target="_blank">DataExec — Breaking Into AI in 2026</a>
+    <a href="https://www.kore1.com/ai-engineer-salary-guide/" target="_blank">KORE1 — AI Engineer Salary Guide 2026</a>
+    <a href="https://www.futureproofing.dev/resources/ai-talent-gap/ai-engineer-salary-trends" target="_blank">Futureproofing — AI Engineer Salary Trends</a>
+    <a href="https://igotanoffer.com/en/advice/machine-learning-system-design-interview" target="_blank">IGotAnOffer — ML System Design Interview</a>
+    <a href="https://github.com/alirezadir/machine-learning-interviews" target="_blank">alirezadir — Machine-Learning-Interviews (GitHub)</a>
+    <a href="https://www.tryexponent.com/blog/machine-learning-system-design-interview-guide" target="_blank">Exponent — ML System Design Guide</a>
+    <a href="https://www.dataquest.io/blog/ai-projects/" target="_blank">Dataquest — Best AI Projects 2026</a>
+    <a href="https://agenticcareers.co/blog/ai-agent-portfolio-projects-get-hired-2026" target="_blank">AgenticCareers — AI Agent Portfolio Projects</a>
+    <a href="https://www.confident-ai.com/knowledge-base/compare/top-7-llm-observability-tools" target="_blank">Confident AI — LLM Observability Tools</a>
+    <a href="https://latitude.so/blog/best-ai-agent-observability-tools-2026-comparison" target="_blank">Latitude — Agent Observability Tools 2026</a>
+    <a href="https://uvik.net/blog/agentic-ai-frameworks/" target="_blank">Uvik — Agentic AI Frameworks 2026</a>
+    <a href="https://www.langchain.com/resources/ai-agent-frameworks" target="_blank">LangChain — AI Agent Frameworks Guide</a>
+    <a href="https://jobsbyculture.com/blog/rag-architecture-guide-2026" target="_blank">RAG Architecture Guide 2026</a>
+    <a href="https://www.dataquest.io/blog/best-generative-ai-courses/" target="_blank">Dataquest — Best Generative AI Courses 2026</a>
+    <a href="https://www.deeplearning.ai/courses" target="_blank">DeepLearning.AI — Course Catalog</a>
+    <a href="https://www.scaler.com/blog/machine-learning-roadmap/" target="_blank">Scaler — Machine Learning Roadmap 2026</a>
+    <a href="https://www.sundeepteki.org/ai-engineer.html" target="_blank">Sundeep Teki — AI Engineer Career Guide</a>
+  </div>
+
+</div></section>
+
+<section class="section" id="reality" style="border-bottom:none;"><div class="container reveal">
+
+  <div class="section-head">
+    <span class="section-num">§9 — Reality Check</span>
+    <h2>What this plan can promise, and what it can't</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--green);">What's realistic</h3>
+      <ul>
+        <li>Multiple independent sources converge on the same number: someone who already knows Python, SQL, statistics, and general software-engineering fundamentals can reach interview-ready AI-engineering competence in 6–9 months of focused work. You start ahead of "complete beginner" on exactly these axes.</li>
+        <li>At ~30 hrs/week for 26 weeks, you're logging roughly 780 focused hours — more than most bootcamps, with five deployed, evaluated, monitored systems to show for it, not a certificate.</li>
+        <li>$140K+ is not an aggressive target against the data in §2 — it's close to the market floor for AI/ML engineering roles at funded companies, before you even reach the frontier-lab tier.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red);">What's genuinely hard right now</h3>
+      <ul>
+        <li>Entry-level hiring at the largest, most famous companies has tightened sharply since 2022 by multiple independent measures — a "guaranteed" offer at one specific famous logo in 6 months is not a promise anyone can honestly make, from a roadmap or otherwise.</li>
+        <li>Neither "AI Engineer" nor "ML Engineer" postings are especially entry-friendly as titles — single-digit percentages of postings are explicitly entry-level. This is a real headwind, not a reason to stop.</li>
+        <li>Outcomes depend on variables this document can't control: interview-day performance, timing, geography and visa status, and plain luck in who reads your application when.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout amber" style="margin-top:26px;">
+    <h4>The one finding worth remembering above all the others</h4>
+    <p>Across every hiring-side source researched for this document, the same conclusion repeats in different words: the market has split into people who treat AI/ML as coursework and people who ship production systems, and only the second group is clearing the strong offers. That's the entire logic behind this roadmap's shape — five real, evaluated, deployed, monitored projects; a phase explicitly on production engineering; and a system-design section built around "what happens after you ship," not just "what happens on stage one." Follow it honestly and you will be a genuinely strong candidate. Whether that becomes an offer at Google specifically, or at Databricks, or at a well-funded startup that outpays several famous names — that part, no document can guarantee. Build the range of options in §7, not a single bet.</p>
+  </div>
+
+</div></section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="divider"></div>
+    <p style="max-width:70ch;">Built from live job postings, public compensation data, and current engineering-hiring analyses as of July 2026. Company requirements, compensation bands, and tooling in the fast-moving GenAI stack change quickly — re-check §2 and §7 against current postings before applying, and treat the tool names in §3 as the current default, not a permanent one. This document reflects publicly available information at the time of writing and isn't affiliated with any company named in it.</p>
+    <p style="margin-top:16px;">rev 1.0 · generated 2026-07-10 · <span class="mono">ai-engineer-roadmap.build</span></p>
+
+  </div>
+</footer>
+
+<a href="#top" class="backtotop" id="backtotop">↑</a>
+
+<script>
+// Reveal on scroll
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:0.08});
+revealEls.forEach(el=>io.observe(el));
+
+// Back to top
+const btt = document.getElementById('backtotop');
+window.addEventListener('scroll', ()=>{ btt.classList.toggle('show', window.scrollY > 800); });
+
+// ---- Progress tracking (persistent, personal) ----
+const TOTAL_CHECKPOINTS = 31;
+async function loadProgress(){
+  const boxes = document.querySelectorAll('.checkpoint input[type=checkbox]');
+  let done = 0;
+  for(const box of boxes){
+    const key = 'aieng-roadmap:' + box.dataset.id;
+    try{
+      const res = await window.storage.get(key, false);
+      if(res && res.value === '1'){ box.checked = true; done++; }
+    }catch(e){ /* key not set yet */ }
+  }
+  updateProgressUI(done);
+}
+function updateProgressUI(done){
+  const el = document.getElementById('navProgress');
+  if(el) el.innerHTML = done + '/' + TOTAL_CHECKPOINTS + ' <span style="color:var(--text-faint)">shipped</span>';
+}
+document.addEventListener('change', async (e)=>{
+  if(e.target.matches('.checkpoint input[type=checkbox]')){
+    const key = 'aieng-roadmap:' + e.target.dataset.id;
+    try{
+      await window.storage.set(key, e.target.checked ? '1' : '0', false);
+    }catch(err){ console.error('storage failed', err); }
+    const boxes = document.querySelectorAll('.checkpoint input[type=checkbox]');
+    let done = 0;
+    boxes.forEach(b=>{ if(b.checked) done++; });
+    updateProgressUI(done);
+  }
+});
+loadProgress();
+</script>
+
+</body>
+</html>
+
