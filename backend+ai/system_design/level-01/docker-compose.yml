@@ -1,0 +1,62 @@
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - backend0
+      - backend1
+      - backend2
+      - backend3
+
+  backend0:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - 7000:7000
+    environment:
+      - SERVER_NAME="FIRST SERVER"
+    depends_on:
+      - redis
+
+  backend1:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - 7001:7000
+    environment:
+      - SERVER_NAME="SECOND SERVER"
+    depends_on:
+      - redis
+
+  backend2:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - 7002:7000
+    environment:
+      - SERVER_NAME="THIRD SERVER"
+    depends_on:
+      - redis
+
+  backend3:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - 7003:7000
+    environment:
+      - SERVER_NAME="FOURTH SERVER"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
