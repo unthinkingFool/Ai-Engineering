@@ -12,13 +12,13 @@ app.use(express.json());
 
 /** apis */
 app.get("/", (req, res) => {
-  res.status(200).json({message : "Hello World! from gateway"});
+  res.status(200).json({message : `Hello World! from ${process.env.SERVER_NAME} service`});
 });
 
 /** microservices */
-app.use("/auth", proxy("http://localhost:7001"));
-app.use("/order", proxy("http://localhost:7002"));
-app.use("/product", proxy("http://localhost:7003"));
+app.use("/auth", proxy("http://auth-service:7001"));
+app.use("/order", proxy("http://order-service:7002"));
+app.use("/product", proxy("http://product-service:7003"));
 
 
 /** start our server */
